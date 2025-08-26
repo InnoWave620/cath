@@ -453,7 +453,44 @@ function playSound(type) {
 }
 
 // Initialize when page loads
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', function() {
+    init();
+    initializeBackgroundMusic();
+});
+
+// Initialize background music
+function initializeBackgroundMusic() {
+    const music = document.getElementById('backgroundMusic');
+    if (music) {
+        // Set volume to a comfortable level
+        music.volume = 0.3;
+        
+        // Try to play the music
+        const playPromise = music.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                console.log('Background music started successfully');
+            }).catch(error => {
+                console.log('Autoplay prevented by browser. Music will start on user interaction.');
+                
+                // Add event listener to start music on first user interaction
+                const startMusicOnInteraction = () => {
+                    music.play().then(() => {
+                        console.log('Background music started after user interaction');
+                    }).catch(e => console.log('Could not start music:', e));
+                    
+                    // Remove the event listeners after first interaction
+                    document.removeEventListener('click', startMusicOnInteraction);
+                    document.removeEventListener('touchstart', startMusicOnInteraction);
+                };
+                
+                document.addEventListener('click', startMusicOnInteraction);
+                document.addEventListener('touchstart', startMusicOnInteraction);
+            });
+        }
+    }
+}
 
 // Add click event to enable audio (browsers require user interaction)
 document.addEventListener('click', function() {
