@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catherine's Journey - Will You Be Mine?</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <h1 class="title">Catherine's Magical Journey</h1>
+            <p class="subtitle">A story written in the stars ✨</p>
+            <button class="start-btn" onclick="startJourney()">Begin the Adventure</button>
+        </div>
+
+        <!-- Journey Map Screen -->
+        <div id="journey-screen" class="screen">
+            <div class="map-container">
+                <svg class="world-map" viewBox="0 0 1000 500">
+                    <!-- Simplified world map outline -->
+                    <path class="continent" d="M150,200 Q200,180 250,200 L280,220 Q300,240 280,260 L250,280 Q200,300 150,280 Z" fill="#4a5568" opacity="0.3"/>
+                    <!-- Africa -->
+                    <path class="continent" d="M450,180 Q500,160 550,180 L580,200 Q600,220 580,240 L550,260 Q500,280 450,260 Z" fill="#4a5568" opacity="0.3"/>
+                    <!-- Asia -->
+                    <path class="continent" d="M750,280 Q800,260 850,280 L880,300 Q900,320 880,340 L850,360 Q800,380 750,360 Z" fill="#4a5568" opacity="0.3"/>
+                    <!-- Australia -->
+                    
+                    <!-- Journey Points -->
+                    <circle id="cape-town" class="journey-point" cx="470" cy="320" r="8" fill="#ff6b6b"/>
+                    <circle id="india" class="journey-point" cx="580" cy="220" r="8" fill="#4ecdc4"/>
+                    <circle id="australia" class="journey-point" cx="820" cy="340" r="8" fill="#45b7d1"/>
+                    <circle id="south-africa" class="journey-point" cx="470" cy="320" r="8" fill="#96ceb4"/>
+                    
+                    <!-- Flight Paths -->
+                    <path id="path1" class="flight-path" d="M470,320 Q525,270 580,220" stroke="#ffd93d" stroke-width="3" fill="none" opacity="0"/>
+                    <path id="path2" class="flight-path" d="M580,220 Q700,280 820,340" stroke="#ffd93d" stroke-width="3" fill="none" opacity="0"/>
+                    <path id="path3" class="flight-path" d="M820,340 Q645,330 470,320" stroke="#ffd93d" stroke-width="3" fill="none" opacity="0"/>
+                </svg>
+                
+                <!-- Location Cards -->
+                <div id="location-card" class="location-card hidden">
+                    <div class="photo-gallery">
+                        <img id="location-photo" class="location-photo" src="" alt="Catherine's Memory">
+                        <div class="photo-hearts"></div>
+                    </div>
+                    <h3 id="location-title"></h3>
+                    <p id="location-message"></p>
+                    <button id="next-btn" onclick="nextLocation()">Continue Journey</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Proposal Screen -->
+        <div id="proposal-screen" class="screen">
+            <div class="proposal-content">
+                <div class="main-photo-container">
+                    <img src="public/photos/cathmain-Photoroom.png" alt="Beautiful Catherine" class="main-photo">
+                    <div class="photo-glow"></div>
+                </div>
+                <h2 class="proposal-title">Catherine...</h2>
+                <div class="heart-container">
+                    <div class="heart">💕</div>
+                </div>
+                <h3 class="question">Will you be my girlfriend?</h3>
+                <div class="button-container">
+                    <button id="yes-btn" class="choice-btn yes-btn" onclick="handleYes()">YES! 💖</button>
+                    <button id="no-btn" class="choice-btn no-btn" onclick="handleNo()">NO</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Celebration Screen -->
+        <div id="celebration-screen" class="screen">
+            <div class="celebration-content">
+                <div class="celebration-photos">
+                    <img src="public/photos/Cath.jpg" class="celebration-photo" style="--delay: 0s">
+                    <img src="public/photos/Cath2.jpg" class="celebration-photo" style="--delay: 0.5s">
+                    <img src="public/photos/Cath3.jpg" class="celebration-photo" style="--delay: 1s">
+                </div>
+                <h2 class="celebration-title">Yay! You just made me the happiest guy alive! 💕</h2>
+                <div class="fireworks-container"></div>
+                <div class="hearts-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Music (Optional - add your own romantic-music.mp3 file) -->
+    <!-- <audio id="background-music" loop>
+        <source src="romantic-music.mp3" type="audio/mpeg">
+    </audio> -->
+
+    <script src="script.js"></script>
+</body>
+</html>
