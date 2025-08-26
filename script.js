@@ -3,7 +3,7 @@ const journeyData = [
     {
         id: 'cape-town',
         title: 'Cape Town, South Africa 🌍',
-        message: 'Where your journey begins... Under Table Mountain\'s watchful gaze, your adventure starts with endless possibilities ahead. Every sunset here whispers of the magic that awaits you, but none shine as brilliantly as your radiant beauty that lights up every moment.',
+        message: 'Under Table Mountain\'s watchful gaze, your adventure starts with endless possibilities ahead. Every sunset here whispers of the magic that awaits you, but none shine as brilliantly as your radiant beauty that lights up every moment.',
         photo: 'public/photos/cath1.jpg',
         pathId: 'path1'
     },
