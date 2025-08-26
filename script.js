@@ -476,14 +476,14 @@ function playSound(type) {
 
 // Beautiful compliments for Catherine
 const beautyCompliments = [
-    "You are absolutely stunning, Catherine! ✨",
-    "Your beauty radiates from within and shines so bright! 💫",
-    "Every glance at you takes my breath away! 😍",
-    "You are the most beautiful person I've ever known! 💖",
-    "Your smile could light up the entire world! 🌟",
-    "Gorgeous inside and out - that's my Catherine! 💕",
-    "Your beauty is beyond words, my love! 🌹",
-    "Perfect in every single way - that's you! ✨"
+    "Catherine, you have such a radiant smile! ✨",
+    "Your kindness and beauty shine so brightly! 💫",
+    "You bring such joy wherever you go! 🌟",
+    "Catherine, you are truly remarkable! 💖",
+    "Your grace and elegance are inspiring! ✨",
+    "You have the most wonderful energy, Catherine! 💕",
+    "Your beauty comes from your amazing heart! 🌹",
+    "Catherine, you are absolutely incredible! 🌟"
 ];
 
 // Show random beauty compliment
@@ -537,14 +537,17 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeBackgroundMusic() {
     const music = document.getElementById('backgroundMusic');
     if (music) {
-        // Set volume to a comfortable level
+        // Set volume to a comfortable level and unmute
         music.volume = 0.3;
+        music.muted = false;
         
-        // Force music to be ready
+        // Force music to be ready and start loading immediately
         music.load();
+        music.currentTime = 0;
         
-        // Multiple attempts to start music immediately
+        // Multiple aggressive attempts to start music immediately
         const attemptPlay = () => {
+            music.muted = false; // Ensure unmuted
             const playPromise = music.play();
             
             if (playPromise !== undefined) {
@@ -557,12 +560,16 @@ function initializeBackgroundMusic() {
             }
         };
         
-        // Try immediately
+        // Try immediately multiple times
         attemptPlay();
-        
-        // Try again after a short delay
+        setTimeout(attemptPlay, 50);
         setTimeout(attemptPlay, 100);
+        setTimeout(attemptPlay, 200);
         setTimeout(attemptPlay, 500);
+        
+        // Also try when audio is ready
+        music.addEventListener('canplaythrough', attemptPlay, { once: true });
+        music.addEventListener('loadeddata', attemptPlay, { once: true });
     }
 }
 
@@ -572,6 +579,8 @@ function setupMusicInteractionHandlers() {
     if (!music) return;
     
     const startMusicOnInteraction = (e) => {
+        music.muted = false; // Ensure unmuted
+        music.volume = 0.3; // Set volume
         music.play().then(() => {
             console.log('Background music started after user interaction');
             // Remove all event listeners after successful start
@@ -594,13 +603,3 @@ function setupMusicInteractionHandlers() {
     document.addEventListener('mousemove', startMusicOnInteraction);
     document.addEventListener('scroll', startMusicOnInteraction);
 }
-
-// Add click event to enable audio (browsers require user interaction)
-document.addEventListener('click', function() {
-    const music = document.getElementById('background-music');
-    if (music && music.paused) {
-        music.play().catch(e => {
-            console.log('Audio play failed:', e);
-        });
-    }
-}, { once: true });
