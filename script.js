@@ -3,28 +3,28 @@ const journeyData = [
     {
         id: 'cape-town',
         title: 'Cape Town, South Africa 🌍',
-        message: 'Where your journey begins... Under Table Mountain\'s watchful gaze, your adventure starts with endless possibilities ahead. Every sunset here whispers of the magic that awaits you.',
+        message: 'Where your journey begins... Under Table Mountain\'s watchful gaze, your adventure starts with endless possibilities ahead. Every sunset here whispers of the magic that awaits you, but none shine as brilliantly as your radiant beauty that lights up every moment.',
         photo: 'public/photos/cath1.jpg',
         pathId: 'path1'
     },
     {
         id: 'india',
         title: 'India ✈️',
-        message: 'Back to the land of vibrant celebrations... Returning to India for a beautiful wedding, where colors dance in the air and love fills every moment. Among the festivities and joy, you shine brighter than any celebration.',
+        message: 'Back to the land of vibrant celebrations... Returning to India for a beautiful wedding, where colors dance in the air and love fills every moment. Among the festivities and joy, you shine brighter than any celebration - your elegance and grace captivating every soul around you.',
         photo: 'public/photos/Cath4.jpg',
         pathId: 'path2'
     },
     {
         id: 'australia',
         title: 'Australia 🐨✨',
-        message: 'Home is where your heart rests... Back in the land down under, surrounded by familiar faces and places you love. The Southern Cross shines brighter when you\'re beneath it.',
+        message: 'Home is where your heart rests... Back in the land down under, surrounded by familiar faces and places you love. The Southern Cross shines brighter when you\'re beneath it, but even the stars pale in comparison to your stunning beauty that makes every moment magical.',
         photo: 'public/photos/Cath3.jpg',
         pathId: 'path3'
     },
     {
         id: 'south-africa',
         title: 'South Africa - February ❤️',
-        message: 'Where our paths finally meet... The circle completes as you return to where it all began. But this time, something magical is waiting for you here.',
+        message: 'Where our paths finally meet... The circle completes as you return to where it all began. But this time, something magical is waiting for you here - a moment as beautiful and perfect as you are, my gorgeous Catherine.',
         photo: 'public/photos/Cath2.jpg',
         pathId: null
     }
@@ -125,6 +125,17 @@ function showProposal() {
         journeyScreen.style.display = 'none';
         proposalScreen.classList.add('active');
         proposalScreen.style.display = 'flex';
+        
+        // Update proposal text with beautiful compliments
+        const proposalTitle = document.getElementById('proposal-title');
+        const proposalMessage = document.getElementById('proposal-message');
+        
+        if (proposalTitle) {
+            proposalTitle.textContent = "Catherine, my beautiful love...";
+        }
+        if (proposalMessage) {
+            proposalMessage.textContent = "From Cape Town to India, Australia to South Africa, every journey has led me to this moment. Your stunning beauty, both inside and out, takes my breath away every single day. You are my adventure, my home, my everything - absolutely perfect in every way. Will you marry me, gorgeous?";
+        }
         
         // Add some romantic effects
         createFloatingHearts();
@@ -233,6 +244,17 @@ function handleNo() {
 
 // Start celebration with fireworks and hearts
 function startCelebration() {
+    // Update celebration text with beautiful compliments
+    const celebrationTitle = document.getElementById('celebration-title');
+    const celebrationMessage = document.getElementById('celebration-message');
+    
+    if (celebrationTitle) {
+        celebrationTitle.textContent = "She said YES! 🎉💍";
+    }
+    if (celebrationMessage) {
+        celebrationMessage.textContent = "Our greatest adventure begins now! Thank you for making me the happiest person alive, my absolutely stunning, beautiful, and perfect Catherine! You are breathtaking in every way possible!";
+    }
+    
     createFireworks();
     createCelebrationHearts();
     
@@ -452,10 +474,63 @@ function playSound(type) {
     }
 }
 
+// Beautiful compliments for Catherine
+const beautyCompliments = [
+    "You are absolutely stunning, Catherine! ✨",
+    "Your beauty radiates from within and shines so bright! 💫",
+    "Every glance at you takes my breath away! 😍",
+    "You are the most beautiful person I've ever known! 💖",
+    "Your smile could light up the entire world! 🌟",
+    "Gorgeous inside and out - that's my Catherine! 💕",
+    "Your beauty is beyond words, my love! 🌹",
+    "Perfect in every single way - that's you! ✨"
+];
+
+// Show random beauty compliment
+function showBeautyCompliment() {
+    const compliment = beautyCompliments[Math.floor(Math.random() * beautyCompliments.length)];
+    
+    // Create floating compliment element
+    const complimentEl = document.createElement('div');
+    complimentEl.textContent = compliment;
+    complimentEl.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #ff6b9d, #c44569);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 25px;
+        font-family: 'Dancing Script', cursive;
+        font-size: 18px;
+        font-weight: 600;
+        box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        z-index: 10000;
+        animation: beautyComplimentFloat 4s ease-in-out forwards;
+        max-width: 300px;
+        text-align: center;
+    `;
+    
+    document.body.appendChild(complimentEl);
+    
+    // Remove after animation
+    setTimeout(() => {
+        if (complimentEl.parentNode) {
+            complimentEl.parentNode.removeChild(complimentEl);
+        }
+    }, 4000);
+}
+
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
     init();
     initializeBackgroundMusic();
+    
+    // Show beauty compliments periodically
+    setTimeout(() => {
+        showBeautyCompliment();
+        setInterval(showBeautyCompliment, 15000); // Every 15 seconds
+    }, 3000); // Start after 3 seconds
 });
 
 // Initialize background music
@@ -465,31 +540,59 @@ function initializeBackgroundMusic() {
         // Set volume to a comfortable level
         music.volume = 0.3;
         
-        // Try to play the music
-        const playPromise = music.play();
+        // Force music to be ready
+        music.load();
         
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                console.log('Background music started successfully');
-            }).catch(error => {
-                console.log('Autoplay prevented by browser. Music will start on user interaction.');
-                
-                // Add event listener to start music on first user interaction
-                const startMusicOnInteraction = () => {
-                    music.play().then(() => {
-                        console.log('Background music started after user interaction');
-                    }).catch(e => console.log('Could not start music:', e));
-                    
-                    // Remove the event listeners after first interaction
-                    document.removeEventListener('click', startMusicOnInteraction);
-                    document.removeEventListener('touchstart', startMusicOnInteraction);
-                };
-                
-                document.addEventListener('click', startMusicOnInteraction);
-                document.addEventListener('touchstart', startMusicOnInteraction);
-            });
-        }
+        // Multiple attempts to start music immediately
+        const attemptPlay = () => {
+            const playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log('Background music started successfully');
+                }).catch(error => {
+                    console.log('Autoplay attempt failed, will try on interaction');
+                    setupMusicInteractionHandlers();
+                });
+            }
+        };
+        
+        // Try immediately
+        attemptPlay();
+        
+        // Try again after a short delay
+        setTimeout(attemptPlay, 100);
+        setTimeout(attemptPlay, 500);
     }
+}
+
+// Setup interaction handlers for music
+function setupMusicInteractionHandlers() {
+    const music = document.getElementById('backgroundMusic');
+    if (!music) return;
+    
+    const startMusicOnInteraction = (e) => {
+        music.play().then(() => {
+            console.log('Background music started after user interaction');
+            // Remove all event listeners after successful start
+            removeAllMusicListeners();
+        }).catch(e => console.log('Could not start music:', e));
+    };
+    
+    const removeAllMusicListeners = () => {
+        document.removeEventListener('click', startMusicOnInteraction);
+        document.removeEventListener('touchstart', startMusicOnInteraction);
+        document.removeEventListener('keydown', startMusicOnInteraction);
+        document.removeEventListener('mousemove', startMusicOnInteraction);
+        document.removeEventListener('scroll', startMusicOnInteraction);
+    };
+    
+    // Add multiple event listeners for maximum coverage
+    document.addEventListener('click', startMusicOnInteraction);
+    document.addEventListener('touchstart', startMusicOnInteraction);
+    document.addEventListener('keydown', startMusicOnInteraction);
+    document.addEventListener('mousemove', startMusicOnInteraction);
+    document.addEventListener('scroll', startMusicOnInteraction);
 }
 
 // Add click event to enable audio (browsers require user interaction)

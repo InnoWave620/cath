@@ -469,6 +469,26 @@ body {
     20%, 40%, 60%, 80% { transform: translateX(3px) rotate(1deg); }
 }
 
+/* Beauty compliment animation */
+@keyframes beautyComplimentFloat {
+    0% {
+        transform: translateY(-20px) scale(0.8);
+        opacity: 0;
+    }
+    15% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    85% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-20px) scale(0.8);
+        opacity: 0;
+    }
+}
+
 /* Celebration Screen */
 .celebration-content {
     text-align: center;
