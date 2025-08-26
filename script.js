@@ -144,11 +144,20 @@ function showProposal() {
 
 // Handle YES button click
 function handleYes() {
-    const proposalScreen = document.getElementById('proposal-screen');
-    const celebrationScreen = document.getElementById('celebration-screen');
-    
     // Play celebration sound if available
     playSound('celebration');
+    
+    // Create WhatsApp message
+    const message = "Hi! I just saw your beautiful proposal website and YES, I agree to be your girlfriend! 💕✨";
+    const phoneNumber = "+27633941909";
+    const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}?text=${encodeURIComponent(message)}`;
+    
+    // Redirect to WhatsApp
+    window.open(whatsappUrl, '_blank');
+    
+    // Still show celebration for visual feedback
+    const proposalScreen = document.getElementById('proposal-screen');
+    const celebrationScreen = document.getElementById('celebration-screen');
     
     proposalScreen.classList.remove('active');
     setTimeout(() => {
