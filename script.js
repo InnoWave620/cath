@@ -10,7 +10,7 @@ const journeyData = [
     {
         id: 'india',
         title: 'India ✈️',
-        message: 'A new adventure awaits... In the land of colors and dreams, you\'ll discover new cultures, taste exotic flavors, and create memories that will last forever. The Taj Mahal has nothing on your beauty.',
+        message: 'Back to the land of vibrant celebrations... Returning to India for a beautiful wedding, where colors dance in the air and love fills every moment. Among the festivities and joy, you shine brighter than any celebration.',
         photo: 'public/photos/Cath4.jpg',
         pathId: 'path2'
     },
@@ -187,14 +187,28 @@ function handleNo() {
     const buttonWidth = noBtn.offsetWidth || 120;
     const buttonHeight = noBtn.offsetHeight || 50;
     
-    // Get safe boundaries (leave some margin from edges)
-    const margin = 20;
+    // Get safe boundaries (leave more margin on mobile)
+    const isMobile = window.innerWidth <= 768;
+    const margin = isMobile ? 40 : 20; // Larger margin on mobile
     const maxX = Math.max(margin, window.innerWidth - buttonWidth - margin);
     const maxY = Math.max(margin, window.innerHeight - buttonHeight - margin);
     
-    // Generate random position
-    const randomX = Math.random() * (maxX - margin) + margin;
-    const randomY = Math.random() * (maxY - margin) + margin;
+    // Generate random position (avoid center area on mobile for better UX)
+    let randomX, randomY;
+    if (isMobile) {
+        // On mobile, prefer edges and corners for more dramatic effect
+        const preferEdge = Math.random() > 0.3;
+        if (preferEdge) {
+            randomX = Math.random() > 0.5 ? margin : maxX - margin;
+            randomY = Math.random() * (maxY - margin) + margin;
+        } else {
+            randomX = Math.random() * (maxX - margin) + margin;
+            randomY = Math.random() > 0.5 ? margin : maxY - margin;
+        }
+    } else {
+        randomX = Math.random() * (maxX - margin) + margin;
+        randomY = Math.random() * (maxY - margin) + margin;
+    }
     
     // Apply the runaway animation
     noBtn.style.position = 'fixed';
@@ -363,25 +377,51 @@ function createCelebrationHearts() {
 
 // Setup photo heart effect on hover
 function setupPhotoHeartEffect(photoElement) {
+    if (!photoElement) return;
+    
     const photoHeartsContainer = photoElement.parentElement.querySelector('.photo-hearts');
+    const isMobile = window.innerWidth <= 768;
     
-    photoElement.addEventListener('mouseenter', () => {
-        // Create multiple hearts when hovering
-        for (let i = 0; i < 3; i++) {
-            setTimeout(() => {
-                createPhotoHeart(photoHeartsContainer);
-            }, i * 200);
-        }
-    });
-    
-    // Also create hearts on click
-    photoElement.addEventListener('click', () => {
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                createPhotoHeart(photoHeartsContainer);
-            }, i * 100);
-        }
-    });
+    if (isMobile) {
+        // On mobile, use touch events for better responsiveness
+        photoElement.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent default touch behavior
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createPhotoHeart(photoHeartsContainer);
+                }, i * 150);
+            }
+        });
+        
+        // Add tap effect for more hearts
+        photoElement.addEventListener('click', (e) => {
+            e.preventDefault();
+            for (let i = 0; i < 5; i++) { // More hearts on mobile for better visual feedback
+                setTimeout(() => {
+                    createPhotoHeart(photoHeartsContainer);
+                }, i * 80);
+            }
+        });
+    } else {
+        // Desktop hover and click effects
+        photoElement.addEventListener('mouseenter', () => {
+            // Create multiple hearts when hovering
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createPhotoHeart(photoHeartsContainer);
+                }, i * 200);
+            }
+        });
+        
+        // Also create hearts on click
+        photoElement.addEventListener('click', () => {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    createPhotoHeart(photoHeartsContainer);
+                }, i * 100);
+            }
+        });
+    }
 }
 
 // Create individual photo heart

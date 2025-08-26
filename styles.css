@@ -244,6 +244,46 @@ body {
     }
 }
 
+/* Simplified animations for mobile performance */
+@media (max-width: 768px) {
+    @keyframes photoHeartFloat {
+        0% {
+            transform: translateY(0) scale(0.8);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-30px) scale(0.3);
+            opacity: 0;
+        }
+    }
+    
+    /* Reduce animation duration on mobile */
+    .photo-heart {
+        animation-duration: 1.5s !important;
+    }
+    
+    /* Optimize celebration animations for mobile */
+    @keyframes celebrationPhotoEntrance {
+        0% {
+            transform: scale(0) rotate(0deg);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1) rotate(180deg);
+            opacity: 1;
+        }
+    }
+    
+    /* Reduce particle effects on mobile */
+    .firework {
+        animation-duration: 0.8s !important;
+    }
+    
+    .floating-heart {
+        animation-duration: 2s !important;
+    }
+}
+
 .location-card.hidden {
     opacity: 0;
     transform: translate(-50%, -50%) scale(0.8);
@@ -412,7 +452,7 @@ body {
 
 .no-btn.running {
     position: absolute;
-    animation: runAway 2s ease-in-out infinite;
+    /* Animation removed - button only moves when clicked */
 }
 
 @keyframes runAway {
@@ -571,14 +611,175 @@ body {
     }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Mobile-First Responsive Design */
+
+/* Small Mobile Devices (320px - 480px) */
+@media (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+    
+    .screen {
+        padding: 1rem;
+    }
+    
+    /* Welcome Screen Mobile */
     .title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .start-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+        min-height: 48px; /* Touch target */
+    }
+    
+    /* Journey Screen Mobile */
+    .world-map {
+        width: 100%;
+        height: 40vh;
+        min-height: 300px;
+    }
+    
+    .journey-point {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .journey-point::before {
+        width: 20px;
+        height: 20px;
+    }
+    
+    /* Location Card Mobile */
+    .location-card {
+        width: 95%;
+        max-width: none;
+        margin: 1rem auto;
+        padding: 1.5rem;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+    
+    .location-title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .location-message {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+    
+    .photo-gallery {
+        margin: 1rem 0;
+    }
+    
+    .gallery-photo {
+        width: 100%;
+        max-width: 280px;
+        height: 200px;
+    }
+    
+    .next-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        min-height: 48px;
+    }
+    
+    /* Proposal Screen Mobile */
+    .proposal-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .question {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .main-photo-container {
+        width: 200px;
+        height: 200px;
+        margin: 1rem auto 2rem;
+    }
+    
+    .main-photo {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .button-container {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .yes-btn, .no-btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+        min-height: 56px; /* Larger touch target */
+    }
+    
+    /* Celebration Screen Mobile */
+    .celebration-title {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .celebration-message {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .celebration-photos {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .celebration-photo {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* Medium Mobile Devices (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .title {
+        font-size: 2.8rem;
     }
     
     .subtitle {
         font-size: 1.2rem;
+    }
+    
+    .world-map {
+        width: 95%;
+        height: 45vh;
+    }
+    
+    .location-card {
+        width: 90%;
+        max-width: 500px;
     }
     
     .proposal-title {
@@ -586,20 +787,161 @@ body {
     }
     
     .question {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+    
+    .main-photo-container {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .main-photo {
+        width: 220px;
+        height: 220px;
     }
     
     .button-container {
-        flex-direction: column;
-        gap: 1rem;
+        flex-direction: row;
+        gap: 2rem;
+    }
+    
+    .yes-btn, .no-btn {
+        padding: 1rem 2rem;
+        min-height: 52px;
     }
     
     .celebration-title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
+    }
+    
+    .celebration-photos {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .celebration-photo {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Tablet Devices (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .title {
+        font-size: 3.5rem;
     }
     
     .world-map {
-        width: 95%;
-        height: 50%;
+        width: 90%;
+        height: 60vh;
+    }
+    
+    .location-card {
+        width: 80%;
+        max-width: 600px;
+    }
+    
+    .main-photo-container {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .main-photo {
+        width: 260px;
+        height: 260px;
+    }
+}
+
+/* Touch-specific optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Remove hover effects on touch devices */
+    .start-btn:hover,
+    .next-btn:hover,
+    .yes-btn:hover,
+    .no-btn:hover {
+        transform: none;
+    }
+    
+    /* Add touch feedback */
+    .start-btn:active,
+    .next-btn:active,
+    .yes-btn:active,
+    .no-btn:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+    }
+    
+    /* Optimize photo interactions for touch */
+    .gallery-photo:hover,
+    .main-photo:hover,
+    .celebration-photo:hover {
+        transform: none;
+    }
+    
+    .gallery-photo:active,
+    .main-photo:active,
+    .celebration-photo:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 768px) and (orientation: landscape) {
+    .screen {
+        padding: 0.5rem;
+    }
+    
+    .title {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .world-map {
+        height: 60vh;
+    }
+    
+    .location-card {
+        max-height: 70vh;
+        padding: 1rem;
+    }
+    
+    .proposal-title {
+        font-size: 1.8rem;
+    }
+    
+    .question {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .main-photo-container {
+        width: 150px;
+        height: 150px;
+        margin: 0.5rem auto 1rem;
+    }
+    
+    .main-photo {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .celebration-title {
+        font-size: 1.8rem;
+    }
+    
+    .celebration-photos {
+        margin: 1rem 0;
+    }
+    
+    .celebration-photo {
+        width: 80px;
+        height: 80px;
     }
 }
