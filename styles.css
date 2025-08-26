@@ -751,8 +751,8 @@ body {
     }
     
     .yes-btn, .no-btn {
-        width: 100%;
-        padding: 1rem;
+        width: fit-content;
+        padding: 1rem 2rem;
         font-size: 1.1rem;
         min-height: 56px; /* Larger touch target */
     }

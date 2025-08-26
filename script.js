@@ -545,6 +545,11 @@ function initializeBackgroundMusic() {
         music.load();
         music.currentTime = 0;
         
+        // Detect if mobile device
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                        ('ontouchstart' in window) || 
+                        (navigator.maxTouchPoints > 0);
+        
         // Multiple aggressive attempts to start music immediately
         const attemptPlay = () => {
             music.muted = false; // Ensure unmuted
@@ -566,6 +571,15 @@ function initializeBackgroundMusic() {
         setTimeout(attemptPlay, 100);
         setTimeout(attemptPlay, 200);
         setTimeout(attemptPlay, 500);
+        
+        // For mobile devices, be extra aggressive
+        if (isMobile) {
+            setTimeout(attemptPlay, 1000);
+            setTimeout(attemptPlay, 1500);
+            setTimeout(attemptPlay, 2000);
+            // Setup interaction handlers immediately for mobile
+            setupMusicInteractionHandlers();
+        }
         
         // Also try when audio is ready
         music.addEventListener('canplaythrough', attemptPlay, { once: true });
@@ -591,15 +605,25 @@ function setupMusicInteractionHandlers() {
     const removeAllMusicListeners = () => {
         document.removeEventListener('click', startMusicOnInteraction);
         document.removeEventListener('touchstart', startMusicOnInteraction);
+        document.removeEventListener('touchend', startMusicOnInteraction);
+        document.removeEventListener('touchmove', startMusicOnInteraction);
         document.removeEventListener('keydown', startMusicOnInteraction);
         document.removeEventListener('mousemove', startMusicOnInteraction);
         document.removeEventListener('scroll', startMusicOnInteraction);
+        window.removeEventListener('orientationchange', startMusicOnInteraction);
+        document.removeEventListener('gesturestart', startMusicOnInteraction);
+        document.removeEventListener('pointerdown', startMusicOnInteraction);
     };
     
-    // Add multiple event listeners for maximum coverage
-    document.addEventListener('click', startMusicOnInteraction);
-    document.addEventListener('touchstart', startMusicOnInteraction);
-    document.addEventListener('keydown', startMusicOnInteraction);
-    document.addEventListener('mousemove', startMusicOnInteraction);
-    document.addEventListener('scroll', startMusicOnInteraction);
+    // Add multiple event listeners for maximum coverage, especially for mobile
+    document.addEventListener('click', startMusicOnInteraction, { passive: true });
+    document.addEventListener('touchstart', startMusicOnInteraction, { passive: true });
+    document.addEventListener('touchend', startMusicOnInteraction, { passive: true });
+    document.addEventListener('touchmove', startMusicOnInteraction, { passive: true });
+    document.addEventListener('keydown', startMusicOnInteraction, { passive: true });
+    document.addEventListener('mousemove', startMusicOnInteraction, { passive: true });
+    document.addEventListener('scroll', startMusicOnInteraction, { passive: true });
+    window.addEventListener('orientationchange', startMusicOnInteraction, { passive: true });
+    document.addEventListener('gesturestart', startMusicOnInteraction, { passive: true });
+    document.addEventListener('pointerdown', startMusicOnInteraction, { passive: true });
 }
